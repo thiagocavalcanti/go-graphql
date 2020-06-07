@@ -7,8 +7,10 @@ import (
 
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
+	"github.com/go-chi/chi"
 	"github.com/thiagocavalcanti/gqlgen-handson/graph"
 	"github.com/thiagocavalcanti/gqlgen-handson/graph/generated"
+	"github.com/thiagocavalcanti/gqlgen-handson/internal/auth"
 	database "github.com/thiagocavalcanti/gqlgen-handson/internal/pkg/db/migrations/mysql"
 )
 
@@ -20,6 +22,8 @@ func main() {
 		port = defaultPort
 	}
 
+	router := chi.NewRouter()
+	router.Use(auth.Middleware())
 	database.InitDB()
 	database.Migrate()
 

@@ -11,7 +11,9 @@ require (
 	github.com/cockroachdb/cockroach-go v0.0.0-20200528011702-6cc4ff37a11e // indirect
 	github.com/cznic/mathutil v0.0.0-20181122101859-297441e03548 // indirect
 	github.com/denisenkom/go-mssqldb v0.0.0-20200428022330-06a60b6afbbc // indirect
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/edsrzf/mmap-go v1.0.0 // indirect
+	github.com/go-chi/chi v3.3.2+incompatible
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/gocql/gocql v0.0.0-20200526081602-cd04bd7f22a7 // indirect
 	github.com/golang-migrate/migrate v3.5.4+incompatible
@@ -27,7 +29,7 @@ require (
 	github.com/vektah/gqlparser/v2 v2.0.1
 	github.com/xanzy/go-gitlab v0.32.1 // indirect
 	go.mongodb.org/mongo-driver v1.3.4 // indirect
-	golang.org/x/crypto v0.0.0-20200604202706-70a84ac30bf9 // indirect
+	golang.org/x/crypto v0.0.0-20200604202706-70a84ac30bf9
 	golang.org/x/exp v0.0.0-20200513190911-00229845015e // indirect
 	golang.org/x/net v0.0.0-20200602114024-627f9648deb9 // indirect
 	golang.org/x/sys v0.0.0-20200602225109-6fdc65e7d980 // indirect

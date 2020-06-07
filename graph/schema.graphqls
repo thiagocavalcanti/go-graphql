@@ -8,6 +8,7 @@ type Link {
 type User {
   id: ID!
   name: String!
+  password: String!
 }
 
 type Query {
