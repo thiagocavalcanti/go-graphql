@@ -35,7 +35,7 @@ CREATE DATABASE hackernews;
 ```
 
 ### Tip 4 - New version of golang-migrate
-The version of golang-migrate used in the tutorial is not working anymore (v4 is the only version not depreceated)
+The version of [golang-migrate](https://github.com/golang-migrate/migrate) used in the tutorial is not working anymore (v4 is the only version not depreceated)
 ```bash
 go get -u github.com/go-sql-driver/mysql
 go build -tags 'mysql' -ldflags="-X main.Version=$(git describe --tags)" -o $GOPATH/bin/migrate github.com/golang-migrate/v4/cmd/migrate
@@ -55,5 +55,4 @@ git clone https://github.com/thiagocavalcanti/go-graphql.git
 go run github.com/99designs/gqlgen #This will generate the models and core graphql logic (generated.go)
 go run server.go
 ```
-
 
