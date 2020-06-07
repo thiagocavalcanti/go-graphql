@@ -16,13 +16,13 @@ type User struct {
 
 // Create - Creates a new user into the database
 func (user *User) Create() {
-	statement, err := database.Db.Prepare("INSERT INTO Users(Name,Password) VALUES(?,?)")
+	statement, err := database.Db.Prepare("INSERT INTO Users(Username,Password) VALUES(?,?)")
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	hashedPassword, err := HashPassword(user.Password)
-	_, err = statement.Exec(user.Name, hashedPassword)
+	_, err = statement.Exec(user.Username, hashedPassword)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -42,7 +42,7 @@ func CheckPasswordHash(password, hash string) bool {
 
 // GetUserIDByUsername - Get the userID by its username
 func GetUserIDByUsername(username string) (int, error) {
-	statement, err := database.Db.Prepare("SELECT ID FROM Users WHERE Name = ?")
+	statement, err := database.Db.Prepare("SELECT ID FROM Users WHERE Username = ?")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -58,4 +58,24 @@ func GetUserIDByUsername(username string) (int, error) {
 	}
 
 	return ID, nil
+}
+
+// Authenticate - Used to authenticated user based on hashed password
+func (user *User) Authenticate() bool {
+	statement, err := database.Db.Prepare("SELECT PASSWORD FROM Users WHERE Username = ?")
+	if err != nil {
+		log.Fatal(err)
+	}
+	row := statement.QueryRow(user.Username)
+
+	var hashedPassword string
+	err = row.Scan(&hashedPassword)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return false
+		} else {
+			log.Fatal(err)
+		}
+	}
+	return CheckPasswordHash(user.Password, hashedPassword)
 }

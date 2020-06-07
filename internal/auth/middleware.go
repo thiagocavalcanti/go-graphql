@@ -36,7 +36,7 @@ func Middleware() func(http.Handler) http.Handler {
 			}
 
 			// Create user object and check if user exists in db
-			user := model.User{Name: username}
+			user := model.User{Username: username}
 			id, err := users.GetUserIDByUsername(username)
 			if err != nil {
 				next.ServeHTTP(w, r)
