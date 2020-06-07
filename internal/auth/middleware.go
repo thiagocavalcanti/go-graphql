@@ -13,10 +13,10 @@ import (
 var userCtxKey = &contextKey{"user"}
 
 type contextKey struct {
-	name string
+	username string
 }
 
-// Middleware - Used for all authenticated http request
+// Middleware -
 func Middleware() func(http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -28,14 +28,15 @@ func Middleware() func(http.Handler) http.Handler {
 				return
 			}
 
-			// Validate token
+			//validate jwt token
 			tokenStr := header
 			username, err := jwt.ParseToken(tokenStr)
 			if err != nil {
 				http.Error(w, "Invalid token", http.StatusForbidden)
+				return
 			}
 
-			// Create user object and check if user exists in db
+			// create user and check if user exists in db
 			user := model.User{Username: username}
 			id, err := users.GetUserIDByUsername(username)
 			if err != nil {
@@ -54,7 +55,7 @@ func Middleware() func(http.Handler) http.Handler {
 }
 
 // ForContext finds the user from the context. REQUIRES Middleware to have run.
-func ForContext(ctx context.Context) *users.User {
-	raw, _ := ctx.Value(userCtxKey).(*users.User)
+func ForContext(ctx context.Context) *model.User {
+	raw, _ := ctx.Value(userCtxKey).(*model.User)
 	return raw
 }
